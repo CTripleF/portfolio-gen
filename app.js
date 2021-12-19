@@ -1,55 +1,44 @@
-//"require" global module available to import only modules that are needed
-
-const fs = require('fs');
-
-const profileDataArgs = process.argv.slice(2, process.argv.length);
-// console.log(profileDataArgs);
-const Name = profileDataArgs[0];
-const github = profileDataArgs[1];
-
-// assigns variables values in order left to right from 0 of array
-// const [name, github] = profileDataArgs;
-
-
-// const printProfileData = (profileDataArr) => {
-//   console.log(profileDataArr);
+// RULES OF ARROW FUNCTIONS
+// const addNums = (numOne, numTwo) => numOne + numTwo; -- implied return with only 1 action
+//const addNums = (numOne, numTwo) => {
+//   console.log(numOne, numTwo);
+//   return numOne + numTwo;
 // };
 
-// printProfileData(profileDataArgs);
+// const printProfileData = profileDataArr => {
+//   // This...
+//   for (let i = 0; i < profileDataArr.length; i += 1) {
+//     console.log(profileDataArr[i]);
+//   }
+
+//   console.log('================');
+
+//   // Is the same as this...
+//   profileDataArr.forEach((profileItem) => {
+//     console.log(profileItem)
+//   });
+// };
+
+// CLEANER VERSION OF ABOVE CODE
+// profileDataArr.forEach(profileItem => console.log(profileItem));
+
+//"require" global module available to import only modules that are needed
+const fs = require('fs');
+const generatePage = require('./src/page-template.js')
 
 
-// implied return when there ins only 1 statement and {} are not needed
-// const generatePage = () => "Name: Joe, Github: Joehub";
+const profileDataArgs = process.argv.slice(2, process.argv.length);
+
+const Name = profileDataArgs[0];
+const Github = profileDataArgs[1];
 
 // use interpolated variable ${variableName}
 // const generatePage = (userName, GithubName) => `Name: ${userName}, Github: ${GithubName}`;
 
 
-// creates line breaks as show in code
-const generatePage = (Name, github) => {
-  return `
-  <!DOCTYPE html> 
-  <html lang="en"> 
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Portfolio Demo</title>
-  </head>
-
-  <body>
-    <h1>${Name}</h1>
-    <h2><a href="https://github.com/${github}">Github</a></h2>
-  </body>
-  </html>
-  `;
-};
-// console.log(name, github);
-// console.log(generatePage(name, github))
-
 //node "FileSystem.writeFile"
 // arg is new file name, 2nd is file to be written, 3rd error handling
-fs.writeFile('index.html', generatePage(Name, github), err => {
+fs.writeFile('index.html', generatePage(Name, Github), err => {
   //if err detected throw (return/display) error
   if (err) throw err;
 
